@@ -1,0 +1,10 @@
+# eclipse
+.classpath
+.project
+.settings
+target/
+bin/
+
+# frege
+build/
+fregec.jar
