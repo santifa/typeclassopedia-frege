@@ -1,7 +1,7 @@
 Typeclassopedia
 ===
 
-This is an example implementation from the Haskell (Typeclassopedia)[https://wiki.haskell.org/Typeclassopedia].  
+This is an example implementation from the Haskell [Typeclassopedia](https://wiki.haskell.org/Typeclassopedia).  
 This document is inteded to be used side by side with the article and demonstrates the concepts in Frege.
 In principle they are the same.  
   
