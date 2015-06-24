@@ -1,4 +1,6 @@
 {--
+    For licensing see 'LICENSE' file
+
     This is an implementation after the guide Typeclassopedia from the Haskell wiki.
     See 'https://wiki.haskell.org/Typeclassopedia'
 
