@@ -1,4 +1,6 @@
-
+{--
+    For licesing see 'LICENSE' file
+--}
 module com.santifa.TypeclassopediaTest where
 
 import com.santifa.Typeclassopedia
