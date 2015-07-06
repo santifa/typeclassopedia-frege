@@ -61,18 +61,40 @@ instance TFunctor ITree where
 -- It is not possible to write a fmap function for this
 data T a = T (a -> Int)
 
--- 5
--- The composition of two Functors is also a Functor.
--- This can be shown by simply generating a Functor that consists of a List and a Maybe functor
--- E.g. f g = tfmap (tfmap g)
+{-- 5
+     The composition of two Functors is also a Functor.
+     This can be shown by simply generating a Functor that consists of a List and a Maybe functor
+     E.g. f g = tfmap (tfmap g)
 
--- Functor Law Exercises
--- 1 breaking the first law
--- 2 what laws are violated
--- instance TFunctor [] where
---    tfmap _ [] = []
---    tfmap g (x:xs) = g x : g x : tfmap g xs
+     Functor Law Exercises
+     1 breaking the first law
+     2 what laws are violated
+     instance TFunctor [] where
+        tfmap _ [] = []
+        tfmap g (x:xs) = g x : g x : tfmap g xs
 
--- Comment out the first instance for [] and comment in this one to try it out.
--- This tfmap definition only breaks the first law and holds the second.
--- try out with x = [1,2] g = (2+) and h = (2*) it hold on composition but not on id
+     Comment out the first instance for [] and comment in this one to try it out.
+     This tfmap definition only breaks the first law and holds the second.
+     try it out with x = [1,2] g = (2+) and h = (2*) it hold on composition but not on id
+--}
+
+
+-- Applicatives
+-- again we use different definitions as in the standard library
+class TApplicative (TFunctor f) => f where
+    tpure :: a -> f a
+    (<**>) :: f (a -> b) -> f a -> f b
+    
+{-- Law Exercise
+     prove that pure f <*> x = pure (flip ($)) <*> x <*> pure f
+     flip :: (a -> b -> c) -> b -> a -> c
+     
+    Let's look at the types
+    pure f <*> x has the type: (a -> b) -> f a -> f b so we take a function and apply a effectful value
+    x can be written as a pure type
+    = pure f <*> pure x we apply the interchange
+    = pure ($ pure x) <*> pure f we rewrite pure x as x and get it out of the ()
+    = pure ($) <*> x <*> pure f consider the pure arguments are in the wrong order for ($)
+    = pure (flip $) <*> x <*> pure f    
+--}
+  
