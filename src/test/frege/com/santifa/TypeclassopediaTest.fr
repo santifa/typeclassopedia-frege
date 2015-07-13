@@ -12,3 +12,4 @@ main _ = do
     println $ "show tfmap on list " ++ show x  ++ " -> "++ show (tfmap g x)
     println $ "show tfmap on Maybe " ++ "Just 2" ++ " -> " ++ show (tfmap g (Just 2))
     println $ "show tfmap on Pair " ++ "Pair 2 2" ++ " -> " ++ show' (tfmap g (Pair 2 2))
+    println $ "show applicative list " ++ "pure (+) <*> [2,3,4] <*> pure 4 " ++ " -> " ++ show (pure (+) <*> [2,3,4] <*> pure 4)

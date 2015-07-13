@@ -14,7 +14,7 @@ AUXFILE := Readme.md Makefile
 RUNFILES := com.santifa.TypeclassopediaTest
 
 # define frege compiler
-FCC=fregec.jar
+FCC=frege/fregec.jar
 FCCFLAGS=-v -d
 J=java
 JFLAGS=-Xss1m -jar

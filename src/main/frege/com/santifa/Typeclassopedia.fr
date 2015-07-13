@@ -16,7 +16,6 @@
 module com.santifa.Typeclassopedia where
 
 -- Type declaration for a Functor.
-
 class TFunctor f where
     tfmap :: (a -> b) -> f a -> f b
 
@@ -80,7 +79,7 @@ data T a = T (a -> Int)
 
 
 -- Applicatives
--- again we use different definitions as in the standard library
+-- again we use different name as in the standard library
 class TApplicative (TFunctor f) => f where
     tpure :: a -> f a
     (<**>) :: f (a -> b) -> f a -> f b
@@ -98,3 +97,34 @@ class TApplicative (TFunctor f) => f where
     = pure (flip $) <*> x <*> pure f    
 --}
   
+{--
+	an example instance of the maybe class
+--}
+instance TApplicative Maybe where
+	tpure a = Just a
+	Nothing <**> _ = Nothing
+	_ <**> Nothing = Nothing
+	(Just a) <**> (Just b) = Just (a b)  	
+
+
+{--
+	For List we use the nondeterministic point of view. 
+	we apply the functions to all inputs in turn and collect all results. 
+--}
+instance TApplicative [] where
+	tpure x =[x]
+	gs <**> xs = [g x | g <- gs, x <- xs]
+
+{--
+	There is a second point of view to list. list are ordered collections of elements
+--}
+data ZipList a = ZipList {getZipList :: [a]}
+derive Show ZipList a
+
+instance TApplicative ZipList where
+	-- in frege we need to define the functor instance for ziplist
+	tfmap _ (ZipList []) = ZipList []
+	tfmap g (ZipList xs) = ZipList (map g xs)
+	-- the applicative definition with the correct pure implementation
+	tpure x = ZipList (repeat x)
+	(ZipList gs) <**> (ZipList xs) = ZipList (zipWith ($) gs xs) 
